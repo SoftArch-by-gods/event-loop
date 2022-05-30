@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	engine "event-loop-handler"
+	c "event-loop-handler/commands"
 	"os"
 )
 
@@ -17,7 +18,7 @@ func main() {
 		scanner := bufio.NewScanner(input)
 		for scanner.Scan() {
 			commandLine := scanner.Text()
-			cmd := engine.Parse(commandLine) // parse the line to get a Command
+			cmd := c.Parse(commandLine) // parse the line to get a Command
 			eventLoop.Post(cmd)
 		}
 	}

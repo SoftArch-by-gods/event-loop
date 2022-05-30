@@ -1,12 +1,13 @@
 package engine
 
 import (
+	"event-loop-handler/commands"
 	"sync"
 )
 
 type messageQueue struct {
 	mu   sync.Mutex
-	data []Command
+	data []commands.Command
 	wait bool
 
 	received chan int
@@ -19,7 +20,7 @@ type EventLoop struct {
 	exitSignal bool
 }
 
-func (mq *messageQueue) popFromQueue() Command {
+func (mq *messageQueue) popFromQueue() commands.Command {
 	mq.mu.Lock()
 	defer mq.mu.Unlock()
 
@@ -53,7 +54,7 @@ func (el *EventLoop) Start() {
 }
 
 // Post add command to queue for processing
-func (el *EventLoop) Post(cmd Command) {
+func (el *EventLoop) Post(cmd commands.Command) {
 	el.mq.mu.Lock()
 	defer el.mq.mu.Unlock()
 
@@ -66,7 +67,7 @@ func (el *EventLoop) Post(cmd Command) {
 
 type stopCommand struct{}
 
-func (sc stopCommand) Execute(h Handler) {
+func (sc stopCommand) Execute(h commands.Handler) {
 	h.(*EventLoop).exitSignal = true
 }
 
