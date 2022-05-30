@@ -1,0 +1,7 @@
+print EventLoop
+palindrom Hello
+command
+
+save text
+palindrom
+print some text
