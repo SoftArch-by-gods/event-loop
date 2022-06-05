@@ -1,7 +1,7 @@
 package engine
 
 import (
-	"event-loop-handler/commands"
+	"event-loop/commands"
 	"sync"
 )
 

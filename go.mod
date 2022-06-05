@@ -1,3 +1,3 @@
-module event-loop-handler
+module event-loop
 
 go 1.17
