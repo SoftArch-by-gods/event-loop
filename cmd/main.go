@@ -39,4 +39,8 @@ func main() {
 	}
 
 	eventLoop.AwaitFinish()
+
+	// cmd := commands.Parse("print test")
+	// eventLoop.Post(cmd)
+	// eventLoop.Post(cmd)
 }

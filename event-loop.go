@@ -2,6 +2,7 @@ package engine
 
 import (
 	"event-loop/commands"
+	"log"
 	"sync"
 )
 
@@ -57,6 +58,11 @@ func (el *EventLoop) Start() {
 func (el *EventLoop) Post(cmd commands.Command) {
 	el.mq.mu.Lock()
 	defer el.mq.mu.Unlock()
+
+	// If Post is entered after the completion of the AwaitFinish generate error
+	if el.exitSignal == true {
+		log.Fatalln("Requests stopped!")
+	}
 
 	el.mq.data = append(el.mq.data, cmd)
 	if el.mq.wait {
